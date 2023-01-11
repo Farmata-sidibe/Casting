@@ -4,8 +4,8 @@ const navBurger = document.querySelector('.nav_burger');
 const lightBtn = document.querySelector('#light');
 const darkBtn = document.querySelector('#dark');
 const body = document.querySelector('body');
-const breedslenght = document.querySelector('.race');
-const factslenght = document.querySelector('.anecdocte');
+const breedslength = document.querySelector('.race');
+const factslength = document.querySelector('.anecdocte');
 
 
 // RESPONSIVE FONCTION
@@ -75,13 +75,13 @@ window.addEventListener("load", () => {
     sendRequest('https://catfact.ninja/breeds').then(response =>{
         // nombres de races
         let breeds = response.data.length;
-        breedslenght.textContent = breeds;
+        breedslength.textContent = breeds;
 
     });
     sendRequest('https://catfact.ninja/facts').then(response =>{
         // nombres de faits
         let facts = response.data.length;
-        factslenght.textContent = facts;
+        factslength.textContent = facts;
        
 
     });
