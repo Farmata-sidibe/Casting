@@ -94,6 +94,9 @@ color: #FF7F57;
     font-size: 50px;    
 font-weight: 500;
 }
+.select{
+    font-weight: 900;
+}
 
 
 @media screen and (max-width: 992px) {

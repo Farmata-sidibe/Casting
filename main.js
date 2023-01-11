@@ -4,6 +4,7 @@ const navBurger = document.querySelector('.nav_burger');
 const lightBtn = document.querySelector('#light');
 const darkBtn = document.querySelector('#dark');
 const body = document.querySelector('body');
+const bloc = document.querySelector('.bloc');
 const breedslength = document.querySelector('.race');
 const factslength = document.querySelector('.anecdocte');
 
@@ -50,6 +51,7 @@ darkBtn.addEventListener('click', function(){
     lightBtn.style.display = 'block';
     if(body.style.backgroundColor = 'black'){
         body.style.backgroundColor = 'white';
+        
     }
 });
 
@@ -87,6 +89,7 @@ window.addEventListener("load", () => {
     });
     
   });
+
     
 
 
