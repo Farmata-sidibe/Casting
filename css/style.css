@@ -69,9 +69,35 @@ font-weight: 900;
 }
 
 
-@media screen and (max-width: 768px) {
+/* END NAVBAR */
+
+.content{
+        padding-top: 40px;
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+}
+.bloc{
+    background-color: #343434;
+    width: 344px;
+    height: 177px;
+    border-radius: 10px;
+    text-align: center;
+    color: #ffffff;
+}
+.bloc h2{
+font-weight: 700;
+font-size: 18px;
+color: #FF7F57;
+}
+
+
+@media screen and (max-width: 992px) {
     #menu_visible{
         display : block;
+    }
+    .content{
+        flex-wrap: wrap;
     }
     nav{
         grid-template-columns: 1fr 0.15fr;
