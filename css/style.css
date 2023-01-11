@@ -33,7 +33,7 @@ nav{
 #dark{
     display: none;
     border: none;
-    background-color: none;
+    background-color: transparent;
     cursor: pointer;
 }
 #light{
@@ -89,6 +89,10 @@ font-weight: 900;
 font-weight: 700;
 font-size: 18px;
 color: #FF7F57;
+}
+.bloc p{
+    font-size: 50px;    
+font-weight: 500;
 }
 
 

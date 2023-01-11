@@ -1,6 +1,9 @@
 const btnMenuVisible = document.querySelector('#menu_visible');
 const btnMenuHidden = document.querySelector('#menu_hidden');
 const navBurger = document.querySelector('.nav_burger');
+const lightBtn = document.querySelector('#light');
+const darkBtn = document.querySelector('#dark');
+const body = document.querySelector('body');
 
 // RESPONSIVE FONCTION
 window.addEventListener('resize', () => {
@@ -30,6 +33,19 @@ btnMenuHidden.addEventListener('click', function(){
 
     }
 })
+
+// fonction dark or light mode
+lightBtn.addEventListener('click', function(){
+    darkBtn.style.display = 'block';
+    lightBtn.style.display = 'none';
+    body.style.backgroundColor = 'white';
+});
+darkBtn.addEventListener('click', function(){
+    darkBtn.style.display = 'none';
+    lightBtn.style.display = 'block';
+    body.style.backgroundColor = 'black';
+});
+
 
 
 
