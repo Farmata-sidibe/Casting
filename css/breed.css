@@ -9,7 +9,8 @@
 .bloc_breed{
     background-color: #343434;
     width: 344px;
-    height: 177px;
+    height: auto;
+    padding: 24px 40px;
     border-radius: 10px;
     text-align: center;
     color: #ffffff;

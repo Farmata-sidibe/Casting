@@ -7,7 +7,8 @@ const body = document.querySelector('body');
 const blocs = document.querySelectorAll('.bloc');
 // variable des paragraphe qui sont dans les blocs fact breed and pelage
 const pBlocs = document.querySelectorAll('.pBloc');
-const fact = document.querySelector('.anecdocte');
+const fact = document.querySelector('.fact');
+const btnFact = document.querySelector('.btnFact');
 const breedslength = document.querySelector('.race');
 const factslength = document.querySelector('.anecdocte');
 
@@ -16,6 +17,7 @@ const factslength = document.querySelector('.anecdocte');
 window.addEventListener("load", () => {
     statistic()
     detectCookie();
+    getFactRandom();
 });
 
 // RESPONSIVE FONCTION
@@ -161,3 +163,18 @@ function statistic(){
     })
 }
 
+// function fact aléatoire de la page fact
+function getFactRandom(){
+    sendRequest('https://catfact.ninja/facts').then(response =>{
+        // nombres de faits
+            let facts = response.data;
+            let thefact = get_random(facts);
+            let thefactRandom = thefact.fact
+            return fact.textContent = thefactRandom;
+    });
+}
+function get_random (list) {
+    return list[Math.floor((Math.random()*list.length))];
+}
+
+btnFact.addEventListener('click',getFactRandom);

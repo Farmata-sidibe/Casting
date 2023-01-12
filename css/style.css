@@ -7,7 +7,8 @@
 .bloc{
     background-color: #EDEDED;
     width: 344px;
-    height: 177px;
+    height: auto;
+    padding: 24px 40px;
     border-radius: 10px;
     text-align: center;
     color: #000000;
