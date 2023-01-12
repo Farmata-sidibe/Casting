@@ -1,23 +1,25 @@
-.content{
+.contentBreed{
+    flex-direction: column;
     padding-top: 40px;
     display: flex;
     gap: 40px;
     justify-content: center;
+    align-items: center;
 }
-.bloc{
-    background-color: #EDEDED;
+.bloc_breed{
+    background-color: #343434;
     width: 344px;
     height: auto;
     padding: 24px 40px;
     border-radius: 10px;
     text-align: center;
-    color: #000000;
+    color: #ffffff;
 }
-.bloc_anecdocte{
+.bloc_breed{
     background-color: #EDEDED;
     color: #121212;
 }
-.btnFact{
+.btnBreed{
     background-color: #FF7F57;
     color: #ffffff;
     font-weight: 700;
@@ -26,31 +28,15 @@ padding: 10px 10px;
 border-radius: 5px;
 border: none;
 }
-.bloc h2{
+.bloc_breed h2{
 font-weight: 700;
 font-size: 18px;
 color: #FF7F57;
 }
-.bloc p{
+.bloc_breed p{
     font-size: 50px;    
 font-weight: 500;
 }
 .select{
     font-weight: 900;
-}
-
-
-@media screen and (max-width: 992px) {
-    #menu_visible{
-        display : block;
-    }
-    .content{
-        flex-wrap: wrap;
-    }
-    nav{
-        grid-template-columns: 1fr 0.15fr;
-    }
-    .link{
-        display : none;
-    }
 }
