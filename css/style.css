@@ -5,12 +5,12 @@
     justify-content: center;
 }
 .bloc{
-    background-color: #343434;
+    background-color: #EDEDED;
     width: 344px;
     height: 177px;
     border-radius: 10px;
     text-align: center;
-    color: #ffffff;
+    color: #000000;
 }
 .bloc_anecdocte{
     background-color: #EDEDED;

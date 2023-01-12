@@ -3,12 +3,20 @@ const btnMenuHidden = document.querySelector('#menu_hidden');
 const navBurger = document.querySelector('.nav_burger');
 
 const body = document.querySelector('body');
-const bloc = document.querySelector('.bloc');
-const pBloc = document.querySelector('.pBloc');
+// variable des bloc fact breed and pelage
+const blocs = document.querySelectorAll('.bloc');
+// variable des paragraphe qui sont dans les blocs fact breed and pelage
+const pBlocs = document.querySelectorAll('.pBloc');
 const fact = document.querySelector('.anecdocte');
 const breedslength = document.querySelector('.race');
 const factslength = document.querySelector('.anecdocte');
 
+
+// lors de chaque rechergement de la page
+window.addEventListener("load", () => {
+    statistic()
+    detectCookie();
+});
 
 // RESPONSIVE FONCTION
 window.addEventListener('resize', () => {
@@ -39,8 +47,6 @@ btnMenuHidden.addEventListener('click', function(){
     }
 })
 
-
-
 // fonction get api
 async function sendRequest(url){
     return new Promise(async (resolve) =>{
@@ -58,144 +64,100 @@ async function sendRequest(url){
     });
 };
 
-// fonction affichage des nombres des races et d'anecdoctes
-window.addEventListener("load", () => {
-    sendRequest('https://catfact.ninja/breeds').then(response =>{
-        // nombres de races
-        let breeds = response.data.length;
-        breedslength.textContent = breeds;
-
-    });
-    sendRequest('https://catfact.ninja/facts').then(response =>{
-        // nombres de faits
-        let facts = response.data.length;
-        factslength.textContent = facts;
-       
-
-    });
-    
-});
-
-
 // les cookies
 // fonction dark or light mode
 const lightBtn = document.querySelector('#light');
 const darkBtn = document.querySelector('#dark');
 
-let theme = "";
-
-// lightBtn.addEventListener('click', getThemeDark);
-// darkBtn.addEventListener('click', getThemeLight);
-
-async function modeLight(){
-    return new Promise(async (resolve) =>{
-    theme= "light";
-    darkBtn.style.display = 'none';
-    lightBtn.style.display = 'block';
-    if(body.style.backgroundColor = 'black'){
-        body.style.backgroundColor = 'white';
-
-    }
-        resolve(theme);
-    });
-};
-async function modeDark(){
-    return new Promise(async (resolve) =>{
-        theme= "dark";
+// Fonction qui permet de changer le thème
+function editTheme(theme){
+   
+    console.log(theme);
+    if(theme === 'dark'){
         darkBtn.style.display = 'block';
         lightBtn.style.display = 'none';
-        if(body.style.backgroundColor = 'white'){
-            body.style.backgroundColor = 'black';
+        body.style.backgroundColor = 'black';
+        blocs.forEach(bloc =>{
             bloc.style.backgroundColor = "#343434";
-            pBloc.style.color= "white";
-        }
-        resolve(theme);
-    });
+        });
+        pBlocs.forEach(pBloc =>{
+            pBloc.style.color = "white";
+        });
+    } else if (theme === 'light') {
+        darkBtn.style.display = 'none';
+        lightBtn.style.display = 'block';
+        body.style.backgroundColor = 'white';
+        blocs.forEach(bloc =>{
+            bloc.style.backgroundColor = "#EDEDED";
+        });
+        pBlocs.forEach(pbloc =>{
+            pbloc.style.color = "black";
+        });
+    }
 };
 
-function getThemeDark(){
-    modeDark().then(response =>{
-        let the = response;
-        console.log(the);
-    })
-}
-function getThemeLight(){
-    modeLight().then(response =>{
-        let the = response;
-        console.log(the);
-    })
-}
-
+// Fonction qui permet l'ajout d'un cookie
 function setCookie(cnameTheme, cvalueTheme, exdays) {
     const d = new Date();
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
     let expires = "expires="+d.toUTCString();
     document.cookie = cnameTheme + "=" + cvalueTheme + ";" + expires + ";path=/";
-  }
+}
 
-  function getCookie(cnameTheme) {
+// Fonction que permet la récupération de la valeur du cookie donné en argument
+function getCookie(cnameTheme) {
     let name = cnameTheme + "=";
     let ca = document.cookie.split(';');
     for(let i = 0; i < ca.length; i++) {
-      let c = ca[i];
-      while (c.charAt(0) == ' ') {
-        c = c.substring(1);
-      }
-      if (c.indexOf(name) == 0) {
-        return c.substring(name.length, c.length);
-      }
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
     }
     return "";
-  }
+}
 
-  function checkCookie() {
-
+// Fonction qui permet de mettre à jour le cookie et de changer le theme
+function checkCookie() {
     let valueTheme = getCookie("theme");
-    console.log(valueTheme)
-    if (valueTheme != "") {
-        modeDark().then(response =>{
-            let the = response;
-            console.log(the);
-
-        })
-    } else {
-        modeDark().then(response =>{
-           valueTheme = response;
-           if (valueTheme != "" && valueTheme != null) {
-            
-            setCookie("theme", valueTheme, 30);
-          }
-        })
-      
-    }
-  }
-  function checkCookieLi() {
-    let valueTheme = getCookie("theme");
-    if (valueTheme != "") {
-        modeLight().then(response =>{
-            valueTheme = response;
-            console.log(valueTheme)
-        })
-    } else {
-        modeLight().then(response =>{
-            valueTheme = response;
-            if (valueTheme != "" && valueTheme != null) {
-            console.log(valueTheme)
-
-                setCookie("theme", valueTheme, 30);
-              }
-        })
-       
+    if (valueTheme === "" || valueTheme === "light") {
+        setCookie('theme', 'dark', 30);
+        editTheme('dark');
+    } else if (valueTheme === "dark") {
+        setCookie('theme', 'light', 30);
+        editTheme('light');
     }
 }
 
+// 
+function detectCookie() {
+    let valueTheme = getCookie("theme");
+    if (valueTheme === "dark") {
+        editTheme('dark');
+    } else if (valueTheme === "light") {
+        editTheme('light');
+    }
+}
 lightBtn.addEventListener('click', checkCookie);
+darkBtn.addEventListener('click', checkCookie);
 
-darkBtn.addEventListener('click', checkCookieLi);
-
-
-
-
-
-
+// fonction statistique de la page home
+function statistic(){
+    let links = ["https://catfact.ninja/breeds","https://catfact.ninja/facts"];
+    links.forEach(link =>{
+        sendRequest(link).then(response =>{
+            // nombres de faits
+            if(link === "https://catfact.ninja/breeds"){
+                let breeds = response.data.length;
+                breedslength.textContent = breeds;
+            } else if(link === "https://catfact.ninja/facts"){
+                let facts = response.data.length;
+                factslength.textContent = facts;
+            }
+        });
+    })
+}
 
