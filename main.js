@@ -68,8 +68,8 @@ async function sendRequest(url){
 
 // les cookies
 // fonction dark or light mode
-const lightBtn = document.querySelector('#light');
-const darkBtn = document.querySelector('#dark');
+const lightBtn = document.querySelector('.light');
+const darkBtn = document.querySelector('.dark');
 
 // Fonction qui permet de changer le thème
 function editTheme(theme){
