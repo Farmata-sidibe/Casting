@@ -40,3 +40,100 @@ font-weight: 500;
 .select{
     font-weight: 900;
 }
+
+/* SECTION BREED FILTER */
+
+.containeBreed{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
+
+}
+.filterBreed{
+    display: grid;
+    grid-template-columns: 1fr .050fr;
+    background-color: #343434;
+    height: 600px;
+    width: 400px;
+    border-radius: 10px;
+    padding: 0px 0px 0px 20px;
+
+}
+#titleRace{
+    display: flex;
+    gap: 8px;
+}
+select{
+    
+    background-color: #ff7f57;
+    border: none;
+    border-radius: 5px;
+    padding: 4px 45px;
+    font-weight: 600;
+
+}
+.persan{
+    background-color: #FF7F57;
+    padding: 18px 8px;
+    width: 340px;
+    margin-bottom: 19px;
+    margin-top: 30px;
+}
+.breedBtn{
+    border-bottom: 2px solid #FF7F57;
+    cursor: pointer;
+    border-top: none;
+    font-weight: 400;
+font-size: 16px;
+    border-right: none;
+    border-left: none;
+    background-color: transparent;
+    color: #c38672;
+    width: 349px;
+    text-align: start;
+}
+.races{
+    display: grid;
+    gap: 27px;
+}
+#contGray{
+    display: grid;
+    grid-template-columns: 1fr;
+    background-color: #d4d3d3;
+    padding-top: 69px;
+}
+#contOrange{
+    background-color: #FF7F57;
+    height: 100px;
+}
+
+.resultFilter{
+    background-color: #dd7474;
+    height: 280px;
+    width: 463px;
+    border-radius: 10px;
+    padding: 10px 15px;
+}
+.contentResult{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.contentResult h3{
+    color: #b58778;
+
+}
+.contentResult h4{
+    font-weight: 100;
+    color: #FF7F57;
+
+}
+.containeBreed h2{
+    font-weight: 700;
+font-size: 18px;
+    color: #FF7F57;
+}
+.containeBreed p{
+    color: #ffffff;
+}
