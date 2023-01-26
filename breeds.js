@@ -5,9 +5,12 @@ const resultOrigin = document.querySelector('.resultOrigin');
 const resultPattern = document.querySelector('.resultPattern');
 const countrySelect = document.querySelector('#set_Country');
 const coatSelect = document.querySelector('#set_pelage');
+
 // lors de chaque rechergement de la page
 window.addEventListener("load", () => {
+    // affiche tous les pays et les pelages
     setCountryCoat();
+    // affiche tous les races de chats
     setBreeds()
 });
 
