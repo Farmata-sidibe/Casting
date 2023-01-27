@@ -5,10 +5,14 @@ const resultOrigin = document.querySelector('.resultOrigin');
 const resultPattern = document.querySelector('.resultPattern');
 const countrySelect = document.querySelector('#set_Country');
 const coatSelect = document.querySelector('#set_pelage');
+
+const prevBtn = document.querySelector('.prevBtn');
+const nextBtn = document.querySelector('.nextBtn');
+const pageNumbers = document.querySelector('.pageNumbers');
 // lors de chaque rechergement de la page
 window.addEventListener("load", () => {
     setCountryCoat();
-    setBreeds()
+    pagination();
 });
 
 // set and add all country and coat in the select list
@@ -36,20 +40,20 @@ function setCountryCoat() {
 countrySelect.addEventListener('change', getSelectValueCountry)
 function setSelectValueCountry() {
     let choiceCountry = countrySelect.value;
-    console.log(choiceCountry);
+    // console.log(choiceCountry);
     return (choiceCountry);
 }
 // get select country value country
 async function getSelectValueCountry() {
     let result = await setSelectValueCountry();
-    console.log(result);
+
     if (result === "") {
-        console.log('ici null');
-        setBreeds(result);
+       
+        pagination(result);
     }
     else if (result !== "") {
-        console.log('ici choice');
-        setBreeds(result)
+       
+        pagination(result)
     }
 }
 
@@ -57,20 +61,18 @@ async function getSelectValueCountry() {
 countrySelect.addEventListener('change', getSelectValueCoat)
 function setSelectValueCoat() {
     let choiceCoat = coatSelect.value;
-    console.log(choiceCoat);
+    // console.log(choiceCoat);
     return (choiceCoat);
 }
 // get select coat value
 async function getSelectValueCoat() {
     let result = await setSelectValueCoat();
-    console.log(result);
-    if (result === "") {
-        console.log('ici null');
-        setBreeds(result);
+    // console.log(result);
+    if (result === "") { 
+        pagination(result);
     }
     else if (result !== "") {
-        console.log('ici choice');
-        setBreeds(result)
+        pagination(result)
     }
 }
 
@@ -79,51 +81,10 @@ function createInput() {
     let inputRace = document.createElement('input');
     inputRace.type = "submit";
     inputRace.className = 'breedBtn';
+    inputRace.addEventListener('click', getInfoBreed);
 
     return inputRace
 }
-
-// sort and display breeds filtered by country
-async function setBreeds(){
-    let resultCountry = await setSelectValueCountry();
-    let resultCoat = await setSelectValueCoat();
-
-    sendRequest('https://catfact.ninja/breeds').then(response =>{
-    // console.warn(resultCountry);
-    // console.warn(resultCoat);
-    let tabCats = response.data;
-    // clear previous data
-    blocRaces.innerHTML = "";
-    tabCats.forEach(breedCat =>{
-        let inputRace = createInput();
-        let choiceCountry = resultCountry;
-        let choiceCoat = resultCoat;
-        if(breedCat.country === choiceCountry && choiceCountry !== ""){
-            if(breedCat.coat === choiceCoat && choiceCoat !== ""){
-                inputRace.value = breedCat.breed;
-                blocRaces.appendChild(inputRace);
-                inputRace.addEventListener('click', getInfoBreed);
-            }
-            else if(breedCat.coat === choiceCoat || choiceCoat === "" ){
-                inputRace.value = breedCat.breed;
-                blocRaces.appendChild(inputRace);
-                inputRace.addEventListener('click', getInfoBreed);
-                }
-        } else if(breedCat.country === choiceCountry || choiceCountry === "" ){
-            if(breedCat.coat === choiceCoat && choiceCoat !== ""){
-                inputRace.value = breedCat.breed;
-                blocRaces.appendChild(inputRace);
-                inputRace.addEventListener('click', getInfoBreed);
-            }else if(breedCat.coat === choiceCoat || choiceCoat === "" ){
-                inputRace.value = breedCat.breed;
-                blocRaces.appendChild(inputRace);
-                inputRace.addEventListener('click', getInfoBreed);
-            }
-                
-        }
-    })
-    });
-};
 
 // if click forEach breeds display all info of breed
 function getInfoBreed(e) {
@@ -144,3 +105,121 @@ function getInfoBreed(e) {
 
     });
 }
+
+// sort and display breeds filtered by country
+// and pagination 
+
+let currentPage = 1;
+// page count
+let itemsPerPage = 5;
+
+function pagination() {
+    return new Promise(async (resolve) => {
+        let resultCountry = await setSelectValueCountry();
+        let resultCoat = await setSelectValueCoat();
+
+        sendRequest('https://catfact.ninja/breeds').then(response => {
+
+            let tabCats = response.data;
+            // console.log(tabCats.length)
+            let totalPages = Math.ceil(tabCats.length / itemsPerPage);
+            
+            // clear previous data
+            blocRaces.innerHTML = "";
+            // fonction dislable prev and next btn
+            handlePageButtonsStatus();
+            let startIndex = (currentPage - 1) * itemsPerPage;
+            let endIndex = startIndex + itemsPerPage;
+            let paginatedCats = tabCats.slice(startIndex, endIndex);
+            paginatedCats.forEach(breedCat => {
+                // create an input for the breed
+                let inputRace = createInput();
+                // selct country and coat choice option
+                let choiceCountry = resultCountry;
+                let choiceCoat = resultCoat;
+                // if choiceCountry is not null
+                if (breedCat.country === choiceCountry && choiceCountry !== "") {
+                    // and  if choiceCoat is not null
+                    if (breedCat.coat === choiceCoat && choiceCoat !== "") {
+                        inputRace.value = breedCat.breed;
+                        blocRaces.appendChild(inputRace);
+                        resolve(inputRace);
+                    }
+                    // else if choiceCoat null
+                    else if (breedCat.coat === choiceCoat || choiceCoat === "") {
+                        inputRace.value = breedCat.breed;
+                        blocRaces.appendChild(inputRace);
+
+                        resolve(inputRace);
+                    }
+                } 
+                //if choiceCountry null
+                else if (breedCat.country === choiceCountry || choiceCountry === "") {
+                    // and if choiceCoat is not null
+
+                    if (breedCat.coat === choiceCoat && choiceCoat !== "") {
+                        inputRace.value = breedCat.breed;
+                        blocRaces.appendChild(inputRace);
+                        resolve(inputRace);
+
+                    } 
+                    // else if choiceCoat null
+                    else if (breedCat.coat === choiceCoat || choiceCoat === "") {
+                        inputRace.value = breedCat.breed;
+                        blocRaces.appendChild(inputRace);
+                        resolve(inputRace);
+
+                    }
+
+                }
+            });
+            // clear previous data
+            pageNumbers.innerHTML = "";
+            // for page count create a btn
+
+            for (let i = 1; i <= totalPages; i++) {
+                let btn = document.createElement('button');
+                btn.className = 'pagination-number'
+                btn.innerText = i;
+                btn.addEventListener('click', function () {
+                    currentPage = i;
+                    pagination();
+
+                });
+                pageNumbers.appendChild(btn);
+            }
+        });
+    });
+}
+
+nextBtn.addEventListener('click', function () {
+    currentPage++;
+    pagination();
+});
+
+prevBtn.addEventListener('click', function () {
+    currentPage--;
+    pagination();
+});
+
+const disableButton = (button) => {
+    button.classList.add("disabled");
+    button.setAttribute("disabled", true);
+  };
+  const enableButton = (button) => {
+    button.classList.remove("disabled");
+    button.removeAttribute("disabled");
+  };
+  const handlePageButtonsStatus = () => {
+    if (currentPage === 1 ) {
+      disableButton(prevBtn);
+    } else {
+      enableButton(prevBtn);
+    }
+    if (itemsPerPage === currentPage ) {
+      disableButton(nextBtn);
+    } else {
+      enableButton(nextBtn);
+    }
+  };
+
