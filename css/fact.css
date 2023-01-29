@@ -8,18 +8,26 @@
 }
 .bloc_fact{
     background-color: #343434;
-    width: 344px;
+    width: 30em;
     height: auto;
-    padding: 24px 40px;
+    padding: 87px 40px;
     border-radius: 10px;
     text-align: center;
     color: #ffffff;
-}
-.bloc_fact{
     background-color: #EDEDED;
     color: #121212;
 }
+
 .btnFact{
+    background-color: #FF7F57;
+    color: #ffffff;
+    font-weight: 700;
+font-size: 18px;
+padding: 10px 10px;
+border-radius: 5px;
+border: none;
+}
+#btnFact{
     background-color: #FF7F57;
     color: #ffffff;
     font-weight: 700;
@@ -39,4 +47,65 @@ font-weight: 500;
 }
 .select{
     font-weight: 900;
+}
+
+.btnsFacts{
+    display: flex;
+    justify-content: space-between;
+    padding: 30px 132px;
+    align-items: center;
+    flex-wrap: wrap;
+   
+}
+.iconDisplay{
+    display: flex;
+    gap: 12px;
+    padding: 30px 32px;
+}
+
+.allFactsColumn {
+    display: flex;
+    gap: 28px;
+    flex-direction: column;
+    align-items: center;
+}
+.allFactsRow{
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.displayColumn{
+    stroke: gray;
+}
+
+
+
+.factEl{
+    background-color: #EDEDED;
+    width: 17em;
+    height: auto;
+    padding: 53px 40px;
+    border-radius: 10px;
+    text-align: center;
+    color: #000000;
+}
+
+.factEl h2{
+font-weight: 700;
+font-size: 18px;
+color: #FF7F57;
+}
+.factEl p{ 
+font-weight: 500;
+}
+
+@media screen and (max-width: 992px) {
+    .contentFact{
+        flex-wrap: wrap;
+        flex-direction: row;
+    }
+    .btnsFacts{
+        justify-content: center;
+    }
 }

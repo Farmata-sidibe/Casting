@@ -14,8 +14,8 @@ const breedslength = document.querySelector('.race');
 const factslength = document.querySelector('.anecdocte');
 const blocRaces = document.querySelector('.races');
 
-const lightBtn = document.querySelector('.light');
-const darkBtn = document.querySelector('.dark');
+const lightBtn = document.querySelectorAll('.light');
+const darkBtn = document.querySelectorAll('.dark');
 
 // lors de chaque rechergement de la page
 window.addEventListener("load", () => {
@@ -79,8 +79,12 @@ function editTheme(theme){
    
     // console.log(theme);
     if(theme === 'dark'){
-        darkBtn.style.display = 'block';
-        lightBtn.style.display = 'none';
+        lightBtn.forEach(btnLight=>{
+            btnLight.style.display = 'none';
+        })
+        darkBtn.forEach(btnDark=>{
+            btnDark.style.display = 'block';
+        })
         body.style.backgroundColor = 'black';
         blocs.forEach(bloc =>{
             bloc.style.backgroundColor = "#343434";
@@ -93,8 +97,12 @@ function editTheme(theme){
         });
 
     } else if (theme === 'light') {
-        darkBtn.style.display = 'none';
-        lightBtn.style.display = 'block';
+        lightBtn.forEach(btnLight=>{
+            btnLight.style.display = 'block';
+        })
+        darkBtn.forEach(btnDark=>{
+            btnDark.style.display = 'none';
+        })
         body.style.backgroundColor = 'white';
         blocs.forEach(bloc =>{
             bloc.style.backgroundColor = "#EDEDED";
@@ -154,5 +162,11 @@ function detectCookie() {
     }
 }
 
-lightBtn.addEventListener('click', checkCookie);
-darkBtn.addEventListener('click', checkCookie);
+lightBtn.forEach(btnlight =>{
+    btnlight.addEventListener('click', checkCookie);
+
+})
+darkBtn.forEach(btnDark =>{
+    btnDark.addEventListener('click', checkCookie);
+
+})

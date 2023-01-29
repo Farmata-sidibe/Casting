@@ -5,6 +5,7 @@ const resultOrigin = document.querySelector('.resultOrigin');
 const resultPattern = document.querySelector('.resultPattern');
 const countrySelect = document.querySelector('#set_Country');
 const coatSelect = document.querySelector('#set_pelage');
+const nmbreBreed = document.querySelector('.nmbreBreed');
 
 const prevBtn = document.querySelector('.prevBtn');
 const nextBtn = document.querySelector('.nextBtn');
@@ -94,7 +95,7 @@ function getInfoBreed(e) {
         let tabCats = response.data
         tabCats.forEach(breedCat => {
             if (breedCat.breed === raceValue) {
-                // console.log(breedCat)
+                
                 resultBreed.textContent = breedCat.breed;
                 resultCoat.textContent = breedCat.coat;
                 resultCountry.textContent = breedCat.country;
@@ -121,7 +122,8 @@ function pagination() {
         sendRequest('https://catfact.ninja/breeds').then(response => {
 
             let tabCats = response.data;
-            // console.log(tabCats.length)
+            console.log(tabCats.length);
+            nmbreBreed.textContent = tabCats.length;
             let totalPages = Math.ceil(tabCats.length / itemsPerPage);
             
             // clear previous data
